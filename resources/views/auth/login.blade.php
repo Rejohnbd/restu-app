@@ -1,57 +1,51 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.app')
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('title', 'Login')
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-input-label for="email" :value="__('Email')" />
-
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
-
-                <x-text-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
-
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
-
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+@section('content')
+<form action="{{ route('login') }}" method="POST">
+    @csrf
+    <div class="form-group has-feedback @error('email') has-error @enderror">
+        <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="{{ __('E-Mail Address') }}" required autocomplete="email" autofocus>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        @error('email')
+        <span class="help-block">
+            {{ $message }}
+        </span>
+        @enderror
+    </div>
+    <div class="form-group has-feedback  @error('password') has-error @enderror">
+        <input type="password" class="form-control" placeholder="{{ __('Password') }}" name="password" required autocomplete="current-password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        @error('password')
+        <span class="help-block">
+            {{ $message }}
+        </span>
+        @enderror
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="checkbox icheck">
+                <label>
+                    <input type="checkbox"> {{ __('Remember Me') }}
                 </label>
             </div>
+        </div>
+        <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+        </div>
+    </div>
+</form>
+@endsection
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-primary-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-primary-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+@section('scripts')
+<script>
+    $(function() {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
+@endsection
