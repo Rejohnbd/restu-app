@@ -61,7 +61,7 @@
                                 <td>{{ $client->resturant_name }}</td>
                                 <td>{{ $client->client_phone_one }}@if(isset($client->client_phone_two)), &nbsp; {{ $client->client_phone_two }}@endif</td>
                                 <td><a href="{{ $client->resturant_full_url }}" target="_blank"> {{$client->resturant_full_url }}</a></td>
-                                <td>{{ $client->resturant_full_short_url }}</td>
+                                <td><a href="{{ $client->resturant_full_short_url }}" target="_blank"> {{$client->resturant_full_short_url }}</a></td>
                                 <td>{{ date('d/m/Y', strtotime($client->created_at)) }}</td>
                                 <td>
                                     <a href="{{ route('clients.show', $client->id) }}" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Show {{ $client->resturant_name }} Details"><i class="fa fa-eye"></i></a>

@@ -46,6 +46,7 @@ class ClientController extends Controller
     {
         $resturant_name_slug = Str::slug($request->resturant_name, '-');
         $slugExist = Client::where('resturant_name_slug', $resturant_name_slug)->exists();
+
         if (!$slugExist) :
             $userInfo = User::create([
                 'role_id'       => 2,
@@ -68,8 +69,6 @@ class ClientController extends Controller
             $newClient->url_status                  = $request->url_status;
             $saveNewClient = $newClient->save();
 
-            // dd($request->all(), $slugExist, env('APP_URL', 'http://restuapp.com'));
-
             if ($saveNewClient) :
                 session()->flash('success', 'Client Created Successfully.');
                 return redirect()->route('clients.index');
@@ -89,9 +88,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Client $client)
     {
-        //
+        return view('admin.client.show', compact('client'));
     }
 
     /**
