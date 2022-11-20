@@ -37,7 +37,13 @@
                             <b>Phone Number</b> <a class="pull-right">{{ $client->client_phone_two }}</a>
                         </li>
                         <li class="list-group-item">
+                            <b>Full Url Slug</b> <a class="pull-right">{{$client->resturant_name_slug }}</a>
+                        </li>
+                        <li class="list-group-item">
                             <b>Full Url</b> <a class="pull-right" href="{{ $client->resturant_full_url }}" target="_blank"> {{$client->resturant_full_url }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Short Url Slug</b> <a class="pull-right">{{$client->resturant_short_url_slug }}</a>
                         </li>
                         <li class="list-group-item">
                             <b>Short Url</b> <a class="pull-right" href="{{ $client->resturant_full_short_url }}" target="_blank"> {{$client->resturant_full_short_url }}</a>
@@ -72,9 +78,8 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#documents" data-toggle="tab">Documents</a></li>
-                    <li><a href="#payments" data-toggle="tab">Payments</a></li>
                     <li><a href="#addDocument" data-toggle="tab">Add Document</a></li>
-                    <li><a href="#addPayment" data-toggle="tab">Add Payment</a></li>
+                    <li><a href="#generateShortUrl" data-toggle="tab">Generate Short Url</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="documents">
@@ -130,7 +135,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane" id="addPayment">
+                    <div class="tab-pane" id="generateShortUrl">
                         <div class="form-horizontal">
                             <div class="form-group">
                                 <input type="hidden" id="clientId" value="{{ $client->id }}">
