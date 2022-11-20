@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +21,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
-    Route::get('/admin-dashboard', function () {
-        return view('admin-dashboard');
-    })->name('admin-dashboard');
+    Route::get('/admin-dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -29,9 +29,7 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'client', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
