@@ -16,7 +16,7 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="treeview ">
+            <li class="treeview @if(Request::is('client*')) active @endif">
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Clients </span>
                     <span class="pull-right-container">
@@ -24,8 +24,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href=""><i class="fa fa-circle-o"></i> Cients List</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> Add Client</a></li>
+                    <li><a href="{{ route('clients.index') }}"><i class="fa fa-circle-o"></i> Cients List</a></li>
+                    <li><a href="{{ route('clients.create') }}"><i class="fa fa-circle-o"></i> Add Client</a></li>
                 </ul>
             </li>
         </ul>
