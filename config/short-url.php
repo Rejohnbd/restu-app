@@ -11,7 +11,7 @@ return [
     | is registered for the short URL route.
     |
     */
-    'prefix' => '/menu',
+    'prefix' => "ARIT",
 
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ return [
     |       used, a 4 character long key will be created.
     |
     */
-    'key_length'            => 6,
+    'key_length'            => 5,
 
     /*
     |--------------------------------------------------------------------------
