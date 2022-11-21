@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('client_phone_two')->nullable();
             $table->string('resturant_logo')->default('default_logo.png')->nullable();
             $table->string('resturant_barcode')->default('default_barcode.png')->nullable();
+            $table->string('resturant_menu')->default('default_menu.pdf')->nullable();
             $table->tinyInteger('url_status')->default(1)->comment('1 = Active, 0 = Inactive');
             $table->timestamps();
         });

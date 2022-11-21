@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/{slug}', [MenuViewController::class, 'index']);
+Route::get('/menu/{slug}', [MenuViewController::class, 'index']);
 
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::get('/admin-dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');

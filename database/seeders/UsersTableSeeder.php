@@ -25,15 +25,5 @@ class UsersTableSeeder extends Seeder
             'created_at'    => date('Y-m-d H:i:s'),
             'updated_at'    => date('Y-m-d H:i:s')
         ]);
-
-        DB::table('users')->insert([
-            'role_id'       => 2,
-            'first_name'    => 'Md.',
-            'last_name'     => 'Client',
-            'email'         => 'client@mail.com',
-            'password'      => Hash::make('password'),
-            'created_at'    => date('Y-m-d H:i:s'),
-            'updated_at'    => date('Y-m-d H:i:s')
-        ]);
     }
 }
