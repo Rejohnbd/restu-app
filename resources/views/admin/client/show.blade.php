@@ -137,7 +137,7 @@
                     </div>
                     <div class="tab-pane" id="generateShortUrl">
                         <div class="form-horizontal">
-                            <form action="{{ route('clients.shorturl', $client->id)}}" method="POST">
+                            <form action="" method="POST">
                                 <div class="form-group">
                                     <label for="paymentAmount" class="col-sm-2 control-label">Payment Amount</label>
                                     <div class="col-sm-10">
