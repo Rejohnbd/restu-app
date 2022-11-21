@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('resturant_name');
             $table->string('resturant_name_slug')->unique();
             $table->string('resturant_directory_name')->unique();
-            $table->string('resturant_full_url')->unique()->nullable();
-            $table->string('resturant_short_url_slug')->unique()->nullable();
-            $table->string('resturant_full_short_url')->unique()->nullable();
+            $table->string('resturant_full_url')->unique();
+            $table->string('resturant_short_url_slug')->unique();
+            $table->string('resturant_full_short_url')->unique();
             $table->string('resturant_location');
             $table->string('resturant_comment')->nullable();
             $table->string('client_phone_one');

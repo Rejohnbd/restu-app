@@ -137,33 +137,20 @@
                     </div>
                     <div class="tab-pane" id="generateShortUrl">
                         <div class="form-horizontal">
-                            <div class="form-group">
-                                <input type="hidden" id="clientId" value="{{ $client->id }}">
-                                <label for="paymentAmount" class="col-sm-2 control-label">Payment Amount</label>
-                                <div class="col-sm-10">
-                                    <input type="number" class="form-control" id="paymentAmount" placeholder="Payment Amount" required>
-                                    <span class="help-block text-danger" style="color: red" id="payment_amount"></span>
+                            <form action="{{ route('clients.shorturl', $client->id)}}" method="POST">
+                                <div class="form-group">
+                                    <label for="paymentAmount" class="col-sm-2 control-label">Payment Amount</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="" class="form-control" id="paymentAmount" placeholder="Payment Amount" required>
+                                        <span class="help-block text-danger" style="color: red" id="payment_amount"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="paymentComments" class="col-sm-2 control-label">Payment Comments</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" id="paymentComments" placeholder="Payment Comments"></textarea>
-                                    <span class="help-block text-danger" style="color: red" id="payment_comments"></span>
+                                <div class=" form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button id="savePayment" type="submit" class="btn btn-primary pull-right">Generate Short Url</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="paymentDate" class="col-sm-2 control-label">Payment Date</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control datepicker" id="paymentDate" placeholder="Payment Date" required>
-                                    <span class="help-block text-danger" style="color: red" id="payment_date"></span>
-                                </div>
-                            </div>
-                            <div class=" form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button id="savePayment" type="submit" class="btn btn-primary pull-right">Save Payment</button>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

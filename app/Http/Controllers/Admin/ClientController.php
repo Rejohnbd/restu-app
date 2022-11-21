@@ -44,8 +44,15 @@ class ClientController extends Controller
      */
     public function store(ClientSaveRequest $request)
     {
-        $resturant_name_slug = Str::slug($request->resturant_name, '-');
-        $slugExist = Client::where('resturant_name_slug', $resturant_name_slug)->exists();
+        $resturant_full_url = env('APP_URL', 'http://restuapp.com') . '/menu/' . $request->resturant_name_slug;
+
+        $builder = new \AshAllenDesign\ShortURL\Classes\Builder();
+        $shortURLObject = $builder->destinationUrl($resturant_full_url)->make();
+        $shortURL = $shortURLObject->default_short_url;
+        $shortURLKey = $shortURLObject->url_key;
+        // dd($shortURLObject, $shortURL, $shortURLKey, $resturant_full_url);
+
+        $slugExist = Client::where('resturant_short_url_slug', $shortURLKey)->exists();
 
         if (!$slugExist) :
             $userInfo = User::create([
@@ -59,13 +66,15 @@ class ClientController extends Controller
             $newClient = new Client;
             $newClient->user_id                     = $userInfo->id;
             $newClient->resturant_name              = $request->resturant_name;
-            $newClient->resturant_name_slug         = $resturant_name_slug;
-            $newClient->resturant_directory_name    = $resturant_name_slug;
-            $newClient->resturant_full_url          = env('APP_URL', 'http://restuapp.com') . '/' . $resturant_name_slug;
+            $newClient->resturant_name_slug         = $request->resturant_name_slug;
+            $newClient->resturant_directory_name    = $request->resturant_name_slug;
+            $newClient->resturant_full_url          = $resturant_full_url;
+            $newClient->resturant_short_url_slug    = $shortURLKey;
+            $newClient->resturant_full_short_url    = $shortURL;
             $newClient->resturant_location          = $request->resturant_location;
             $newClient->resturant_comment           = $request->resturant_comment;
-            $newClient->client_phone_one           = $request->client_phone_one;
-            $newClient->client_phone_two           = $request->client_phone_two;
+            $newClient->client_phone_one            = $request->client_phone_one;
+            $newClient->client_phone_two            = $request->client_phone_two;
             $newClient->url_status                  = $request->url_status;
             $saveNewClient = $newClient->save();
 
@@ -76,8 +85,9 @@ class ClientController extends Controller
                 session()->flash('error', 'Something Happend Wrong');
                 return redirect()->route('clients.index');
             endif;
+
         else :
-            session()->flash('error', 'Resturant Name Already Exist. Try Again!');
+            session()->flash('error', 'Resturant Name, Slug, URL Already Exist. Try Again!');
             return redirect()->back();
         endif;
     }

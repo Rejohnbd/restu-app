@@ -97,6 +97,17 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group @error('resturant_name_slug') has-error @enderror">
+                            <label for="resturantNameSlug" class="control-label">Resturant Name Slug <span class="text-danger">*</span></label>
+                            <input type="text" name="resturant_name_slug" class="form-control" id="resturantNameSlug" value="{{ isset($client) ? $client->resturant_name_slug : old('resturant_name_slug') }}" placeholder="Enter Resturat Name Slug" required>
+                            @error('resturant_name_slug')
+                            <span class="help-block text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group @error('resturant_location') has-error @enderror">
                             <label for="clientAddress" class="control-label">Address <span class="text-danger">*</span></label>
@@ -147,6 +158,31 @@
 
 @section('scripts')
 <script src="{{ asset('vendors/sweet-alert/sweetalert.js') }}"></script>
+<script>
+    document.getElementById("resturantName").addEventListener("input", function() {
+        let theSlug = string_to_slug(this.value);
+        document.getElementById("resturantNameSlug").value = theSlug;
+    });
+
+    function string_to_slug(str) {
+        str = str.replace(/^\s+|\s+$/g, ""); // trim
+        str = str.toLowerCase();
+
+        // remove accents, swap ñ for n, etc
+        var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+        var to = "aaaaeeeeiiiioooouuuunc------";
+        for (var i = 0, l = from.length; i < l; i++) {
+            str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+        }
+
+        str = str
+            .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+            .replace(/\s+/g, "-") // collapse whitespace and replace by -
+            .replace(/-+/g, "-"); // collapse dashes
+
+        return str;
+    }
+</script>
 @if(session('error'))
 <script>
     $(document).ready(function() {
