@@ -136,4 +136,43 @@ class ClientController extends Controller
     {
         //
     }
+
+
+    public function uploadClientImages(Request $request)
+    {
+        if ($request->hasFile('resturant_logo') || $request->hasFile('resturant_barcode')) :
+            $clientInfo = Client::findOrFail($request->client_id);
+            if ($request->resturant_logo) :
+                $request->validate([
+                    'resturant_logo' => 'required|mimes:jpg,jpeg,png'
+                ]);
+                $file = $request->file('resturant_logo');
+                $fileExtension = $request->resturant_logo->extension();
+                $logoLocation = $clientInfo->resturant_directory_name . '/' . $clientInfo->resturant_name_slug . '-logo.' . $fileExtension;
+                $file->move(storage_path('/app/public/' . $clientInfo->resturant_directory_name) . '/', $clientInfo->resturant_name_slug . '-logo.' . $fileExtension);
+                $clientInfo->resturant_logo = $logoLocation;
+                $clientInfo->save();
+            endif;
+
+            if ($request->resturant_barcode) :
+                $request->validate([
+                    'resturant_barcode' => 'required|mimes:jpg,jpeg,png'
+                ]);
+                $file = $request->file('resturant_barcode');
+                $fileExtension = $request->resturant_barcode->extension();
+                $barcodeLocation = $clientInfo->resturant_directory_name . '/' . $clientInfo->resturant_name_slug . '-barcode.' . $fileExtension;
+                $file->move(storage_path('/app/public/' . $clientInfo->resturant_directory_name) . '/', $clientInfo->resturant_name_slug . '-barcode.' . $fileExtension);
+                $clientInfo->resturant_barcode = $barcodeLocation;
+                $clientInfo->save();
+            endif;
+
+            $data = [
+                'success' => true,
+                'message' => 'Uploaded Successfully.'
+            ];
+            return response()->json($data);
+        else :
+            dd('stop');
+        endif;
+    }
 }

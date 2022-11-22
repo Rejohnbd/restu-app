@@ -26,6 +26,7 @@ Route::get('/menu/{slug}', [MenuViewController::class, 'index']);
 Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::get('/admin-dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
     Route::resource('clients', ClientController::class);
+    Route::post('clients-images-upload', [ClientController::class, 'uploadClientImages'])->name('clients-images-upload');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

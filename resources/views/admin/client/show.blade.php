@@ -78,30 +78,27 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#documents" data-toggle="tab">Documents</a></li>
-                    <li><a href="#addDocument" data-toggle="tab">Add Document</a></li>
-                    <li><a href="#generateShortUrl" data-toggle="tab">Generate Short Url</a></li>
+                    <li><a href="#addDocument" data-toggle="tab">Add QR Code & Logo</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="active tab-pane" id="documents">
                         <div class="box-footer">
                             <ul class="mailbox-attachments clearfix">
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img src="{{ asset('img/default_logo.png') }}" alt=""></span>
+                                    <span class="mailbox-attachment-icon has-img"><img src="{{ $client->resturant_logo == 'default_logo.png' ? asset('img/default_logo.png') : asset('storage/' . $client->resturant_logo) }}" alt="{{ $client->resturant_name }}"></span>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> photo2.png</a>
+                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> {{ $client->resturant_logo == 'default_logo.png' ? 'default_logo.png' : substr(strrchr($client->resturant_logo, "/"), 1) }}</a>
                                         <span class="mailbox-attachment-size">
-                                            1.9 MB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                            <a href="{{ $client->resturant_logo == 'default_logo.png' ? asset('img/default_logo.png') : asset('storage/' . $client->resturant_logo) }}" class="btn btn-default btn-xs pull-right" download=""><i class=" fa fa-cloud-download"></i></a>
                                         </span>
                                     </div>
                                 </li>
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img src="{{ asset('img/default_logo.png') }}" alt=""></span>
+                                    <span class="mailbox-attachment-icon has-img"><img src="{{ $client->resturant_barcode == 'default_barcode.png' ? asset('img/default_logo.png') : asset('storage/' . $client->resturant_barcode) }}" alt="{{ $client->resturant_name }}"></span>
                                     <div class="mailbox-attachment-info">
-                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> photo2.png</a>
+                                        <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> {{ $client->resturant_barcode == 'default_barcode.png' ? 'default_barcode.png' : substr(strrchr($client->resturant_barcode, "/"), 1) }}</a>
                                         <span class="mailbox-attachment-size">
-                                            1.9 MB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>
+                                            <a href="{{ $client->resturant_barcode == 'default_barcode.png' ? asset('img/default_logo.png') : asset('storage/' . $client->resturant_barcode) }}" class="btn btn-default btn-xs pull-right" download=""><i class="fa fa-cloud-download"></i></a>
                                         </span>
                                     </div>
                                 </li>
@@ -109,23 +106,19 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="addDocument">
-                        <form class="form-horizontal" action="" enctype="multipart/form-data" method="POST">
+                        <form id="uploadImage" class="form-horizontal" action="javascript:void(0)" enctype="multipart/form-data" method="POST">
+                            @csrf
+                            <input type="hidden" name="client_id" value="{{ $client->id }}">
                             <div class="form-group">
-                                <label for="docPicture" class="col-sm-2 control-label">Picture</label>
+                                <label for="resturantLogo" class="col-sm-2 control-label">Resturant Logo</label>
                                 <div class="col-sm-3">
-                                    <input type="file" name="picture" class="form-control" id="docPicture">
+                                    <input type="file" name="resturant_logo" class="form-control" id="resturantLogo">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="docNID" class="col-sm-2 control-label">NID</label>
+                                <label for="resturantQrCode" class="col-sm-2 control-label">Resturant Barcode</label>
                                 <div class="col-sm-3">
-                                    <input type="file" name="nid" class="form-control" id="docNID">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="docPassport" class="col-sm-2 control-label">Passport</label>
-                                <div class="col-sm-3">
-                                    <input type="file" name="passport" class="form-control" id="docPassport">
+                                    <input type="file" name="resturant_barcode" class="form-control" id="resturantQrCode">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -135,24 +128,6 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane" id="generateShortUrl">
-                        <div class="form-horizontal">
-                            <form action="" method="POST">
-                                <div class="form-group">
-                                    <label for="paymentAmount" class="col-sm-2 control-label">Payment Amount</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="" class="form-control" id="paymentAmount" placeholder="Payment Amount" required>
-                                        <span class="help-block text-danger" style="color: red" id="payment_amount"></span>
-                                    </div>
-                                </div>
-                                <div class=" form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button id="savePayment" type="submit" class="btn btn-primary pull-right">Generate Short Url</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -161,19 +136,37 @@
 @endsection
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('vendors/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendors/sweet-alert/sweetalert.css') }}">
-<style>
-    .datepicker-orient-top {
-        z-index: 999999 !important;
-    }
-</style>
 @endsection
 
 @section('scripts')
-<script src="{{ asset('vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('vendors/sweet-alert/sweetalert.js') }}"></script>
 <script>
-
+    $(document).ready(function() {
+        $('#uploadImage').submit(function() {
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("clients-images-upload") }}',
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(response) {
+                    // console.log(resposne);
+                    if (response.success) {
+                        Swal.fire(
+                            'Good job!',
+                            response.message,
+                            'success'
+                        );
+                        location.reload();
+                    }
+                },
+                error: function(errors) {
+                    console.log(errors);
+                }
+            });
+        });
+    });
 </script>
 @endsection
