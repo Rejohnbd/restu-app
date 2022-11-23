@@ -9,9 +9,9 @@ class MenuViewController extends Controller
 {
     public function index($slug)
     {
-        $checkExist = Client::where('resturant_name_slug', $slug)->where('url_status', 1)->first();
-        if ($checkExist) :
-            dd($slug);
+        $menuItemsData = Client::with('menuItems')->where('resturant_name_slug', $slug)->where('url_status', 1)->first();
+        if ($menuItemsData) :
+            return view('frontend.menu_list.index', compact('menuItemsData'));
         else :
             return redirect('/');
         endif;

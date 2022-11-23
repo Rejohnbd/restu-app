@@ -16,16 +16,16 @@
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="treeview @if(Request::is('menus*')) active @endif">
                 <a href="#">
-                    <i class="fa fa-user"></i> <span>Users </span>
+                    <i class="fa fa-coffee"></i> <span>Menu </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Users List</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Add User</a></li>
+                    <li><a href="{{ route('menus.index') }}"><i class="fa fa-circle-o"></i> Menu Item List</a></li>
+                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Add Menu Item</a></li>
                 </ul>
             </li>
         </ul>
