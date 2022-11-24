@@ -41,4 +41,33 @@ Route::middleware(['auth', 'client', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('migrate/{key}', function ($key) {
+    if ($key == 'Rejohn') {
+        try {
+            \Artisan::call('migrate');
+            echo 'Migrated Successfully!';
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    } else {
+        echo 'Not matched!';
+    }
+});
+
+
+Route::get('clear', function () {
+    \Artisan::call('optimize:clear');
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:cache');
+    \Artisan::call('config:clear');
+    echo "Run clear Successfully";
+});
+
+Route::get('storage-link', function() {
+   $targetFolder = storage_path('app/public');
+   $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+   symlink($targetFolder, $linkFolder);
+   echo "Create Storage Path";
+});
+
 require __DIR__ . '/auth.php';
