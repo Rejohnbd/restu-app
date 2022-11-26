@@ -36,6 +36,15 @@
             padding-bottom: 20px;
         }
 
+        #menuListTable tbody tr td {
+            vertical-align: middle;
+        }
+
+        .thtf-bg {
+            background-color: #000000a8;
+            color: #fff
+        }
+
         @keyframes gradient {
             0% {
                 background-position: 0% 50%;
@@ -53,7 +62,13 @@
 </head>
 
 <body class="hold-transition lockscreen">
-    @yield('content')
+    <div class="container">
+        @yield('content')
+        <div class="text-center pb-20" style="background-color: #fff;">
+            <b>Developed By </b><a href="mailto:rejohnbd@gmail.com">Rejohn</a></b><br>
+            <strong>Copyright &copy; 2021-{{ date('Y') }}. All rights reserved.</strong>
+        </div>
+    </div>
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
