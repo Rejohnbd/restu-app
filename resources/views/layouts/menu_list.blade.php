@@ -69,6 +69,7 @@
             <strong>Copyright &copy; 2021-{{ date('Y') }}. All rights reserved.</strong>
         </div>
     </div>
+
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>

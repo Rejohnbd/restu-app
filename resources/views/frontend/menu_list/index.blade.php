@@ -8,10 +8,15 @@
     <img src="{{ asset('storage/'. $menuItemsData->resturant_logo) }}" alt="{{$menuItemsData->resturant_name}}" style="width: 120px;" />
 </div>
 <div class="box" style="background-color: #fff;">
-    <div class="box-header text-center">
+    <div class="box-header">
         <h3 class="box-title text-center pt-20">{{ $menuItemsData->resturant_name }}</h3>
-        <p>{{ $menuItemsData->resturant_location }}</p>
+        <p class="text-center">{{ $menuItemsData->resturant_location }}</p>
+        <div class="p-20">
+            <a href="@if($menuItemsData->resturant_menu == 'default_menu.pdf') {{ asset('files/default_menu.pdf') }} @else {{ asset('storage/'.$menuItemsData->resturant_menu) }} @endif" class="btn btn-primary" download="">Download Menu</a>
+            <a href="@if($menuItemsData->resturant_menu == 'default_menu.pdf') {{ asset('files/default_menu.pdf') }} @else {{ asset('storage/'.$menuItemsData->resturant_menu) }} @endif" target="_blank" class="btn btn-primary pull-right">View Menu</a>
+        </div>
     </div>
+
     <div class="box-body p-20">
         <table id="menuListTable" class="table table-bordered table-striped">
             <thead class="thtf-bg">
