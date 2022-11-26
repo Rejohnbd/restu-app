@@ -8,13 +8,32 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <style>
         body {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradient 15s ease infinite;
             height: 100vh;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .pt-20 {
+            padding-top: 20px;
+        }
+
+        .p-20 {
+            padding: 20px;
+        }
+
+        .img-center {
+            text-align: center;
+        }
+
+        .pb-20 {
+            padding-bottom: 20px;
         }
 
         @keyframes gradient {

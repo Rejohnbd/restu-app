@@ -116,4 +116,33 @@ class MenuItemController extends Controller
     {
         //
     }
+
+    public function menusUpload(Request $request)
+    {
+        if ($request->hasFile('resturant_menu')) :
+            $userId = Auth::user()->id;
+            $clientInfo = Client::where('user_id', $userId)->first();
+
+            $request->validate([
+                'resturant_menu' => 'required|mimes:pdf'
+            ]);
+            $file = $request->file('resturant_menu');
+            $fileExtension = $request->resturant_menu->extension();
+            $menuLocation = $clientInfo->resturant_directory_name . '/' . $clientInfo->resturant_name_slug . '-menu.' . $fileExtension;
+            $file->move(storage_path('/app/public/' . $clientInfo->resturant_directory_name) . '/', $clientInfo->resturant_name_slug . '-menu.' . $fileExtension);
+            $clientInfo->resturant_menu = $menuLocation;
+            $clientInfo->save();
+
+            $data = [
+                'success' => true,
+                'message' => 'Uploaded Successfully.'
+            ];
+            return response()->json($data);
+        else :
+            $data = [
+                'success' => false,
+                'message' => 'Please Attahced Menu.'
+            ];
+        endif;
+    }
 }

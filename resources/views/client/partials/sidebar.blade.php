@@ -28,6 +28,8 @@
                     <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Add Menu Item</a></li>
                 </ul>
             </li>
+            <li class="header">Resturant Info</li>
+            <li><a href="{{ route('restu-info') }}"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
         </ul>
     </section>
 </aside>

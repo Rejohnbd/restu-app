@@ -35,7 +35,9 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'client', 'verified'])->group(function () {
     Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/restu-info', [ClientDashboardController::class, 'restuInfo'])->name('restu-info');
     Route::resource('menus', MenuItemController::class);
+    Route::post('menus-upload', [MenuItemController::class, 'menusUpload'])->name('menus-upload');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -63,11 +65,11 @@ Route::get('clear', function () {
     echo "Run clear Successfully";
 });
 
-Route::get('storage-link', function() {
-   $targetFolder = storage_path('app/public');
-   $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
-   symlink($targetFolder, $linkFolder);
-   echo "Create Storage Path";
+Route::get('storage-link', function () {
+    $targetFolder = storage_path('app/public');
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+    symlink($targetFolder, $linkFolder);
+    echo "Create Storage Path";
 });
 
 require __DIR__ . '/auth.php';
