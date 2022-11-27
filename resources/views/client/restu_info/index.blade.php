@@ -97,7 +97,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <span class="mailbox-attachment-icon has-img"><img src="{{ $client->resturant_menu == 'default_menu.pdf' ? asset('img/default_logo.png') : asset('storage/' . $client->resturant_menu) }}" alt="{{ $client->resturant_name }}"></span>
+                                    <span class="mailbox-attachment-icon has-img"><img src="{{ $client->resturant_menu == 'default_menu.pdf' ? asset('img/default_logo.png') : asset('img/default_pdf.png') }}" alt="{{ $client->resturant_name }}"></span>
                                     <div class="mailbox-attachment-info">
                                         <a href="#" class="mailbox-attachment-name"><i class="fa fa-camera"></i> {{ $client->resturant_menu == 'default_menu.pdf' ? 'default_logo.png' : substr(strrchr($client->resturant_menu, "/"), 1) }}</a>
                                         <span class="mailbox-attachment-size">
