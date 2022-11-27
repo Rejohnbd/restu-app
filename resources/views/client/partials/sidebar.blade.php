@@ -25,7 +25,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ route('menus.index') }}"><i class="fa fa-circle-o"></i> Menu Item List</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Add Menu Item</a></li>
+                    <li><a href="{{ route('menus.create') }}"><i class="fa fa-circle-o"></i> Add Menu Item</a></li>
                 </ul>
             </li>
             <li class="header">Resturant Info</li>

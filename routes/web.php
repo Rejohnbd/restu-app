@@ -65,11 +65,19 @@ Route::get('clear', function () {
     echo "Run clear Successfully";
 });
 
-Route::get('storage-link', function () {
-    $targetFolder = storage_path('app/public');
-    $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
-    symlink($targetFolder, $linkFolder);
-    echo "Create Storage Path";
+Route::get('storage-link/{key}', function ($key) {
+    if ($key == 'Rejohn') {
+        try {
+            $targetFolder = storage_path('app/public');
+            $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
+            symlink($targetFolder, $linkFolder);
+            echo "Create Storage Path";
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    } else {
+        echo 'Not matched!';
+    }
 });
 
 require __DIR__ . '/auth.php';
