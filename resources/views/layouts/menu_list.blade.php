@@ -8,6 +8,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/lightgallery/css/lightgallery.min.css') }}">
     <style>
         body {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -74,7 +75,15 @@
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendors/lightgallery/js/lightgallery.min.js') }}"></script>
+    <script src="{{ asset('vendors/lightgallery/js/lg-zoom.min.js') }}"></script>
+    <script src="{{ asset('vendors/lightgallery/js/lg-rotate.min.js') }}"></script>
+    <script src="{{ asset('vendors/lightgallery/js/lg-fullscreen.min.js') }}"></script>
+    <script src="{{ asset('vendors/lightgallery/js/lg-video.min.js') }}"></script>
     <script>
+        lightGallery(document.getElementById('lightgallery'), {
+            selector: '.selector'
+        });
         $(function() {
             $('#menuListTable').DataTable();
         })

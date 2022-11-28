@@ -24,15 +24,31 @@
                     <th>Sl</th>
                     <th>Menu Name</th>
                     <th>Image</th>
+                    <th>Video</th>
                     <th>Price(s)</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="lightgallery">
                 @foreach($menuItemsData->menuItems as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{$data->menu_name}}</td>
-                    <td class="img-center">@if($data->menu_image)<a href="{{ asset('storage/'.$data->menu_image) }}"> <img src="{{ asset('storage/'.$data->menu_image) }}" alt="{{$data->menu_name}}" style="width: 60px; height: 60px;"></a>@else @endif</td>
+                    <td class="img-center">
+                        @if($data->menu_image)
+                        <a class="selector" href="{{ asset('storage/'.$data->menu_image) }}">
+                            <img src="{{ asset('storage/'.$data->menu_image) }}" alt="{{$data->menu_name}}" style="width: 60px; height: 60px;" />
+                        </a>
+                        @else
+                        @endif
+                    </td>
+                    <td class="img-center">
+                        @if($data->menu_image)
+                        <a class="selector" href="https://www.youtube.com/watch?v=VfMWiLnUB30" data-poster="{{ asset('storage/'.$data->menu_image) }}">
+                            <img src="{{ asset('storage/'.$data->menu_image) }}" alt="{{$data->menu_name}}" style="width: 60px; height: 60px;" />
+                        </a>
+                        @else
+                        @endif
+                    </td>
                     <td>{{$data->menu_price}}</td>
                 </tr>
                 @endforeach
@@ -42,6 +58,7 @@
                     <th>Sl</th>
                     <th>Menu Name</th>
                     <th>Image</th>
+                    <th>Video</th>
                     <th>Price(s)</th>
                 </tr>
             </tfoot>
