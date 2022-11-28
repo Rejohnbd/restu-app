@@ -19,7 +19,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">@if(isset($menu)) Update Menu @else Create Menu @endif</h3>
         </div>
-        <form action="{{ isset($menus) ? route('menus.update', $menu->id) : route('menus.store') }}" enctype="multipart/form-data" method="POST">
+        <form action="{{ isset($menu) ? route('menus.update', $menu->id) : route('menus.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
             @if(isset($menu))
             @method('PUT')
@@ -77,8 +77,8 @@
                         <div class="form-group @error('status') has-error @enderror">
                             <label>Active Status <span class="text-danger">*</span></label>
                             <select name="status" class="form-control" required>
-                                <option value="1">Active</option>
-                                <option value="0">In Active</option>
+                                <option value="1" @if(isset($menu) && $menu->status == 1) selected @endif>Active</option>
+                                <option value="0" @if(isset($menu) && $menu->status == 0) selected @endif>In Active</option>
                             </select>
                             @error('status')
                             <span class="help-block text-danger">{{ $message }}</span>

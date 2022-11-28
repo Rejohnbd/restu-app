@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\MenuStoreRequest;
+use App\Http\Requests\Client\MenuUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -57,14 +58,14 @@ class MenuItemController extends Controller
             $currentDate = date('Y_m_d_H_i');
             $file = $request->file('menu_image');
             $fileExtension = $request->menu_image->extension();
-            $menuItemLocation = $clientInfo->resturant_directory_name . '/' . $menuNameSlug . '-' . $currentDate . $fileExtension;
-            $file->move(storage_path('/app/public/' . $clientInfo->resturant_directory_name) . '/', $menuNameSlug . '-' . $currentDate . $fileExtension);
+            $menuItemLocation = $clientInfo->resturant_directory_name . '/' . $menuNameSlug . '-' . $currentDate . '.' . $fileExtension;
+            $file->move(storage_path('/app/public/' . $clientInfo->resturant_directory_name) . '/', $menuNameSlug . '-' . $currentDate . '.' . $fileExtension);
             $newMenuItem->menu_image = $menuItemLocation;
         endif;
         $saveNewMenuItem = $newMenuItem->save();
 
         if ($saveNewMenuItem) :
-            session()->flash('success', 'Client Created Successfully.');
+            session()->flash('success', 'Menu Created Successfully.');
             return redirect()->route('menus.index');
         else :
             session()->flash('error', 'Something Happend Wrong');
@@ -89,9 +90,15 @@ class MenuItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(MenuItem $menu)
     {
-        //
+        $userInfo = Auth::user()->client;
+        if ($userInfo->id == $menu->client_id) :
+            return view('client.menu.create', compact('menu'));
+        else :
+            session()->flash('error', 'Something Happend Wrong');
+            return redirect()->route('menus.index');
+        endif;
     }
 
     /**
@@ -101,9 +108,44 @@ class MenuItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuUpdateRequest $request, MenuItem $menu)
     {
-        //
+        $userInfo = Auth::user()->client;
+
+        if ($userInfo->id == $menu->client_id) :
+            $menuItemLocation = $menu->menu_image;
+
+            if ($request->hasFile('menu_image')) :
+                $menuNameSlug = Str::slug($request->menu_name);
+                $currentDate = date('Y_m_d_H_i');
+                $file = $request->file('menu_image');
+                $fileExtension = $request->menu_image->extension();
+                if (!is_null($menuItemLocation)) :
+                    unlink(storage_path('app/public/' . $menuItemLocation));
+                endif;
+                $menuItemLocation = $userInfo->resturant_directory_name . '/' . $menuNameSlug . '-' . $currentDate . '.' . $fileExtension;
+                $file->move(storage_path('/app/public/' . $userInfo->resturant_directory_name) . '/', $menuNameSlug . '-' . $currentDate . '.' . $fileExtension);
+            endif;
+
+            $updateMenuItem = $menu->update([
+                'menu_name'         => $request->menu_name,
+                'menu_price'        => $request->menu_price,
+                'menu_image'        => $menuItemLocation,
+                'menu_description'  => $request->menu_description,
+                'status'            => $request->status,
+            ]);
+
+            if ($updateMenuItem) :
+                session()->flash('success', 'Menu Update Successfully.');
+                return redirect()->route('menus.index');
+            else :
+                session()->flash('error', 'Something Happend Wrong');
+                return redirect()->route('menus.index');
+            endif;
+        else :
+            session()->flash('error', 'Something Happend Wrong');
+            return redirect()->route('menus.index');
+        endif;
     }
 
     /**

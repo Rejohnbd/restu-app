@@ -59,7 +59,7 @@
                                 <td>{{ date('d/m/Y', strtotime($menu->created_at)) }}</td>
                                 <td>
                                     <a href="{{ route('menus.show', $menu->id) }}" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Show {{ $menu->menu_name }} Details"><i class="fa fa-eye"></i></a>
-                                    <a href="" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit {{ $menu->menu_name }} info"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('menus.edit', $menu->id) }}" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Edit {{ $menu->menu_name }} info"><i class="fa fa-edit"></i></a>
                                     <a href="#" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete {{ $menu->menu_name }}"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
