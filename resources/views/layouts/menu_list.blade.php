@@ -7,7 +7,7 @@
     <title>{{ config('app.name', 'Laravel') }} :: @yield('title')</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/DataTables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/lightgallery/css/lightgallery.min.css') }}">
     <style>
         body {
@@ -25,8 +25,8 @@
             padding-top: 20px;
         }
 
-        .p-20 {
-            padding: 20px;
+        .p-10 {
+            padding: 10px;
         }
 
         .img-center {
@@ -73,8 +73,7 @@
 
     <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendors/DataTables/datatables.min.js') }}"></script>
     <script src="{{ asset('vendors/lightgallery/js/lightgallery.min.js') }}"></script>
     <script src="{{ asset('vendors/lightgallery/js/lg-zoom.min.js') }}"></script>
     <script src="{{ asset('vendors/lightgallery/js/lg-rotate.min.js') }}"></script>
@@ -85,7 +84,9 @@
             selector: '.selector'
         });
         $(function() {
-            $('#menuListTable').DataTable();
+            $('#menuListTable').DataTable({
+                responsive: true,
+            });
         })
     </script>
 </body>

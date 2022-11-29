@@ -11,28 +11,27 @@
     <div class="box-header">
         <h3 class="box-title text-center pt-20">{{ $menuItemsData->resturant_name }}</h3>
         <p class="text-center">{{ $menuItemsData->resturant_location }}</p>
-        <div class="p-20">
+        <div class="p-10">
             <a href="@if($menuItemsData->resturant_menu == 'default_menu.pdf') {{ asset('files/default_menu.pdf') }} @else {{ asset('storage/'.$menuItemsData->resturant_menu) }} @endif" class="btn btn-primary" download="">Download Menu</a>
             <a href="@if($menuItemsData->resturant_menu == 'default_menu.pdf') {{ asset('files/default_menu.pdf') }} @else {{ asset('storage/'.$menuItemsData->resturant_menu) }} @endif" target="_blank" class="btn btn-primary pull-right">View Menu</a>
         </div>
     </div>
 
-    <div class="box-body p-20">
+    <div class="box-body p-10">
         <table id="menuListTable" class="table table-bordered table-striped">
             <thead class="thtf-bg">
                 <tr>
-                    <th>Sl</th>
                     <th>Menu Name</th>
+                    <th>Price(s)</th>
                     <th>Image</th>
                     <th>Video</th>
-                    <th>Price(s)</th>
                 </tr>
             </thead>
             <tbody id="lightgallery">
                 @foreach($menuItemsData->menuItems as $data)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
                     <td>{{$data->menu_name}}</td>
+                    <td>{{$data->menu_price}}</td>
                     <td class="img-center">
                         @if($data->menu_image)
                         <a class="selector" href="{{ asset('storage/'.$data->menu_image) }}">
@@ -49,17 +48,15 @@
                         @else
                         @endif
                     </td>
-                    <td>{{$data->menu_price}}</td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot class="thtf-bg">
                 <tr>
-                    <th>Sl</th>
                     <th>Menu Name</th>
+                    <th>Price(s)</th>
                     <th>Image</th>
                     <th>Video</th>
-                    <th>Price(s)</th>
                 </tr>
             </tfoot>
         </table>
